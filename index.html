@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalogue de la bibliothèque</title>
+  <meta name="description" content="Catalogue de bibliothèque : consultez, recherchez, filtrez, ajoutez et supprimez des livres.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="lien-evitement" href="#catalogue">Aller au catalogue</a>
+
+  <header class="entete">
+    <div class="conteneur entete__contenu">
+      <h1 class="entete__titre">Catalogue de la bibliothèque</h1>
+      <nav aria-label="Navigation principale">
+        <ul class="nav">
+          <li><a href="#catalogue">Catalogue</a></li>
+          <li><a href="#ajout">Ajouter un livre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteneur">
+    <section id="catalogue" aria-labelledby="titre-catalogue">
+      <h2 id="titre-catalogue">Catalogue</h2>
+
+      <div class="outils" role="search">
+        <div class="champ champ--large">
+          <label for="recherche">Rechercher un titre ou un auteur</label>
+          <input type="search" id="recherche" autocomplete="off">
+        </div>
+        <div class="champ">
+          <label for="filtre-categorie">Catégorie</label>
+          <select id="filtre-categorie">
+            <option value="">Toutes</option>
+            <option value="roman">Roman</option>
+            <option value="science">Science</option>
+            <option value="histoire">Histoire</option>
+            <option value="informatique">Informatique</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="tri">Trier par</label>
+          <select id="tri">
+            <option value="titre-asc">Titre (A à Z)</option>
+            <option value="titre-desc">Titre (Z à A)</option>
+            <option value="annee-asc">Année (croissant)</option>
+            <option value="annee-desc">Année (décroissant)</option>
+          </select>
+        </div>
+        <div class="champ champ--case">
+          <input type="checkbox" id="filtre-disponibles">
+          <label for="filtre-disponibles">Disponibles seulement</label>
+        </div>
+      </div>
+
+      <div class="barre-etat">
+        <p id="compteur" role="status"></p>
+        <button type="button" id="btn-reinitialiser" class="bouton bouton--secondaire">Réinitialiser</button>
+      </div>
+
+      <p id="message-vide" class="vide" hidden>Aucun livre ne correspond. Modifiez la recherche ou les filtres.</p>
+      <ul id="liste-livres" class="grille"></ul>
+    </section>
+
+    <section id="ajout" class="ajout" aria-labelledby="titre-ajout">
+      <h2 id="titre-ajout">Ajouter un livre</h2>
+      <form id="form-ajout" novalidate>
+        <div class="champ">
+          <label for="titre">Titre</label>
+          <input type="text" id="titre" name="titre" aria-describedby="erreur-titre" autocomplete="off">
+          <p id="erreur-titre" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ">
+          <label for="auteur">Auteur</label>
+          <input type="text" id="auteur" name="auteur" aria-describedby="erreur-auteur" autocomplete="off">
+          <p id="erreur-auteur" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ">
+          <label for="annee">Année de publication</label>
+          <input type="number" id="annee" name="annee" inputmode="numeric" aria-describedby="erreur-annee">
+          <p id="erreur-annee" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ">
+          <label for="categorie">Catégorie</label>
+          <select id="categorie" name="categorie" aria-describedby="erreur-categorie">
+            <option value="">Choisir une catégorie</option>
+            <option value="roman">Roman</option>
+            <option value="science">Science</option>
+            <option value="histoire">Histoire</option>
+            <option value="informatique">Informatique</option>
+            <option value="autre">Autre</option>
+          </select>
+          <p id="erreur-categorie" class="erreur" aria-live="polite"></p>
+        </div>
+        <div class="champ champ--case">
+          <input type="checkbox" id="disponible" name="disponible" checked>
+          <label for="disponible">Disponible à l’emprunt</label>
+        </div>
+        <button type="submit" class="bouton">Ajouter le livre</button>
+        <p id="message-ajout" class="confirmation" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <p>Devoir 1 · LOG3550 Développement web · ISTEAH</p>
+    </div>
+  </footer>
+
+  <template id="modele-carte">
+    <li class="carte">
+      <h3 class="carte__titre"></h3>
+      <p class="carte__auteur"></p>
+      <p class="carte__meta"></p>
+      <p><span class="etiquette"></span></p>
+      <div class="carte__actions">
+        <button type="button" class="bouton bouton--petit" data-action="emprunter">Emprunter</button>
+        <button type="button" class="bouton bouton--petit bouton--secondaire" data-action="rendre">Rendre</button>
+        <button type="button" class="bouton bouton--petit bouton--danger" data-action="supprimer">Supprimer</button>
+      </div>
+    </li>
+  </template>
+</body>
+</html>
